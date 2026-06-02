@@ -65,14 +65,13 @@
 
 body {
     margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-padding-top: 15vh;
-    min-height: 100vh;
+    align-items: center;
 }
 
 .container {
@@ -409,7 +408,7 @@ function showStayBack() {
     `;
 }
 function showStayClose() {
-
+gtag('event', 'stay_close_clicked');
     document.querySelector('.container').innerHTML = `
         <h1 style="font-size:48px; line-height:1.1; margin-bottom:20px;">
     You chose to stay close
