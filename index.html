@@ -188,50 +188,68 @@ function showWalking() {
     }, 2000);
 }
 function showMoving() {
+
     document.querySelector('.container').innerHTML = `
-    <div class="analysis-title">
-        Analyzing Following Distance
-    </div>
+        <div class="analysis-title">
+            Analyzing
+        </div>
 
-    <div class="progress-track">
-        <div class="progress-fill"></div>
-    </div>
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
 
-    <div class="analysis-subtitle">
-        Please remain awkwardly close...
-    </div>
-`;
+        <div class="analysis-subtitle">
+            Please remain calm.
+        </div>
+    `;
 
     setTimeout(function() {
 
         document.querySelector('.container').innerHTML = `
-            <h1>RESULT</h1>
-
-            <p style="font-size:32px; font-weight:bold;">
+            <p style="font-size:20px; opacity:0.7;">
                 You are approximately
             </p>
 
-            <h1>
-                1 QR CODE<br>TOO CLOSE
+            <h1 style="font-size:56px; margin:10px 0;">
+                1 QR CODE
+            </h1>
+
+            <h1 style="font-size:56px; margin:0 0 30px 0;">
+                TOO CLOSE
             </h1>
 
             <p>
-                If you can scan a moving QR code,<br>
-                you are probably following a little too closely.
+                If you can scan a moving QR code,
+                you're probably following a little too closely.
             </p>
 
             <button onclick="showMoveBack()">
                 Move Back
             </button>
 
-            <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+            <button onclick="showCatchMe()">
                 Catch Me At The Next Red Light
             </button>
         `;
 
     }, 2000);
 }
+function showCatchMe() {
 
+    document.querySelector('.container').innerHTML = `
+        <h1>Excellent.</h1>
+
+        <p>
+            We've established you're too close.
+            <br><br>
+            Now say hi properly.
+        </p>
+
+        <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+            @matt.zilla
+        </button>
+    `;
+}
 function showStopped() {
 
     document.querySelector('.container').innerHTML = `
