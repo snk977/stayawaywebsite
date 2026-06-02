@@ -1,20 +1,290 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stay Away</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            font-size: 48px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Personal Space Analyzer</title>
+
+<style>
+    .progress-track {
+    width: 100%;
+    max-width: 350px;
+    height: 8px;
+    background: #d1d1d6;
+    border-radius: 999px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #007aff;
+    border-radius: 999px;
+    animation: fillBar 2s linear forwards;
+}
+
+@keyframes fillBar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .progress-track {
+        background: #2c2c2e;
+    }
+}
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --button: #f2f2f7;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #000000;
+        --text: #ffffff;
+        --button: #1c1c1e;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+.analysis-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.analysis-subtitle {
+    font-size: 18px;
+    opacity: 0.6;
+    margin-top: 20px;
+}
+p {
+    font-size: 22px;
+    line-height: 1.4;
+    opacity: 0.8;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 22px;
+    background: var(--button);
+    color: var(--text);
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+</style>
 </head>
+
 <body>
-    Stay Away
+
+<div class="container">
+
+<h1>Where did you spot me?</h1>
+
+<button onclick="showMotorcycle()">
+Motorcycle
+</button>
+
+<button onclick="showWalking()">
+Walking
+</button>
+
+</div>
+<script>
+
+function showMotorcycle() {
+    document.querySelector('.container').innerHTML = `
+        <h1>Current Status</h1>
+
+        <p>
+            Am I moving?
+        </p>
+
+        <button onclick="showMoving()">
+            Yes
+        </button>
+
+        <button onclick="showStopped()">
+            No
+        </button>
+    `;
+}
+
+function showWalking() {
+
+    document.querySelector('.container').innerHTML = `
+        <h1>Analyzing Personal Space...</h1>
+
+        <p>
+            Please wait.
+        </p>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1>RESULT</h1>
+
+            <p style="font-size:32px; font-weight:bold;">
+                You are approximately
+            </p>
+
+            <h1>
+                1 awkward conversation<br>too close
+            </h1>
+
+            <p>
+                At this point,
+                <br>
+                you might as well say hello.
+            </p>
+
+            <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+                Say Hi
+            </button>
+
+            <button onclick="showMoveBack()">
+                Move Back
+            </button>
+        `;
+
+    }, 2000);
+}
+function showMoving() {
+    document.querySelector('.container').innerHTML = `
+    <div class="analysis-title">
+        Analyzing Following Distance
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-fill"></div>
+    </div>
+
+    <div class="analysis-subtitle">
+        Please remain awkwardly close...
+    </div>
+`;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1>RESULT</h1>
+
+            <p style="font-size:32px; font-weight:bold;">
+                You are approximately
+            </p>
+
+            <h1>
+                1 QR CODE<br>TOO CLOSE
+            </h1>
+
+            <p>
+                If you can scan a moving QR code,<br>
+                you are probably following a little too closely.
+            </p>
+
+            <button onclick="showMoveBack()">
+                Move Back
+            </button>
+
+            <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+                Catch Me At The Next Red Light
+            </button>
+        `;
+
+    }, 2000);
+}
+
+function showStopped() {
+
+    document.querySelector('.container').innerHTML = `
+        <h1>Analyzing Social Acceptability...</h1>
+
+        <p>
+            Please wait.
+        </p>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1>Distance Status</h1>
+
+            <h1>Acceptable</h1>
+
+            <p>
+                We're already stopped.
+                <br><br>
+                You might as well introduce yourself.
+            </p>
+
+            <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+                Say Hi
+            </button>
+
+            <button onclick="showContinueExisting()">
+                Continue Existing
+            </button>
+        `;
+
+    }, 2000);
+}function showMoveBack() 
+{
+    document.querySelector('.container').innerHTML = `
+        <h1>Excellent Choice</h1>
+
+        <p>
+            Personal space restored.
+        </p>
+
+        <h1>+10 Karma</h1>
+    `;
+}function showContinueExisting() {
+
+    document.querySelector('.container').innerHTML = `
+        <h1>Fair Enough</h1>
+
+        <p>
+            Continue existing.
+        </p>
+    `;
+}
+</script>
 </body>
 </html>
