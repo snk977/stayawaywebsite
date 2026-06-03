@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6N14BSJHG1"></script>
 <script>
@@ -389,6 +390,8 @@ function showStopped() {
 }
 function showStayBack() {
 
+    gtag('event', 'stay_back_clicked');
+
     document.querySelector('.container').innerHTML = `
         <div style="font-size:80px; margin-bottom:20px;">
             🌻
@@ -404,7 +407,15 @@ function showStayBack() {
             more personal space.
         </p>
     `;
-}
+
+    setTimeout(() => {
+    confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FFD93D', '#F6C90E', '#FFB800']
+    });
+}, 300);
 function showStayClose() {
 gtag('event', 'stay_close_clicked');
     document.querySelector('.container').innerHTML = `
