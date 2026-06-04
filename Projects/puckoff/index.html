@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6N14BSJHG1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6N14BSJHG1');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>@Matt.Zilla</title>
+
+<style>
+    .progress-track {
+    width: 100%;
+    max-width: 350px;
+    height: 8px;
+    background: #d1d1d6;
+    border-radius: 999px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #007aff;
+    border-radius: 999px;
+    animation: fillBar 4s linear forwards;
+}
+
+@keyframes fillBar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+.wave {
+    font-size: 100px;
+    display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave 1.2s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(14deg); }
+    30%  { transform: rotate(-8deg); }
+    45%  { transform: rotate(14deg); }
+    60%  { transform: rotate(-4deg); }
+    75%  { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+@media (prefers-color-scheme: dark) {
+    .progress-track {
+        background: #2c2c2e;
+    }
+}
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --button: #f2f2f7;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #000000;
+        --text: #ffffff;
+        --button: #1c1c1e;
+    }
+}
+
+body {
+    margin: 0;
+    min-height: 100dvh;
+
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 500px;
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+.analysis-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.analysis-subtitle {
+    font-size: 22px;
+    line-height: 1.4;
+    margin: 30px 0;
+    font-weight: 500;
+}
+p {
+    font-size: 22px;
+    line-height: 1.4;
+    opacity: 0.8;
+}
+
+button {
+    width: 100%;
+    border: 2px solid #0071e3;
+    border-radius: 999px;
+    padding: 18px;
+    margin-top: 20px;
+    font-size: 22px;
+    font-family: inherit;
+
+    background: transparent;
+    color: #0071e3;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+button:hover,
+button:active {
+    background: #0071e3;
+    color: white;
+}
+.primary-button {
+    background: #0071e3;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Where did you spot me?</h1>
+
+<button onclick="showMotorcycle()">
+Motorcycle
+
+</button>
+
+<button onclick="showWalking()">
+Walking
+</button>
+
+</div>
+<script>
+    const facts = [
+"The Honda Super Cub is the best-selling motor vehicle in history.",
+"Indonesia is one of the world's largest motorcycle markets.",
+"Harley-Davidson was founded in 1903.",
+"Ducati originally made radio components.",
+"The Isle of Man TT began in 1907.",
+"MotoGP bikes can exceed 350 km/h.",
+"The first Yamaha motorcycle appeared in 1955.",
+"The Honda Gold Wing was introduced in 1975.",
+"The Suzuki Hayabusa was once the world's fastest production motorcycle.",
+"Kawasaki's Ninja name first appeared in the 1980s.",
+
+"Ferrari was founded by Enzo Ferrari in 1947.",
+"The Porsche 911 has been in production since 1964.",
+"The Toyota Corolla is among the best-selling cars ever made.",
+"The McLaren F1 has a center-mounted driver's seat.",
+"The Bugatti Veyron was the first production car to exceed 400 km/h.",
+"The Lamborghini Miura helped define the modern supercar.",
+"The Ford Model T put millions of people on wheels.",
+"The Nissan GT-R earned the nickname Godzilla.",
+"The Porsche 959 was one of the most advanced cars of its era.",
+"The BMW M3 began life as a homologation special.",
+
+"Astra Honda Motor distributes Honda motorcycles in Indonesia.",
+"Toyota Astra Motor distributes Toyota vehicles in Indonesia.",
+"Indonesia assembles many vehicles locally.",
+"Jakarta traffic has created generations of clutch experts.",
+"Motorcycles outnumber cars in many Indonesian cities.",
+"Indonesia is one of Honda's most important markets.",
+"Many Indonesian riders travel farther in a week than some sports cars do in a month.",
+"The Toyota Avanza became one of Indonesia's most recognizable family cars.",
+"The Innova is practically a national institution.",
+"Many rare supercars in Indonesia arrived through specialist importers.",
+
+"Only 399 Ferrari Enzos were originally built.",
+"The Porsche 918 Spyder was limited to 918 units.",
+"The Bugatti Centodieci was limited to just 10 units.",
+"The McLaren F1 production run totaled just over 100 cars.",
+"Some Koenigsegg models are produced in runs of fewer than 100 vehicles.",
+"The Mercedes CLK GTR road car was built in extremely small numbers.",
+"The Lamborghini Reventón was limited to 20 coupes.",
+"The Ferrari LaFerrari coupe was limited to 499 units.",
+"The McLaren Speedtail was limited to 106 units.",
+"The Aston Martin Valkyrie is one of the most extreme road cars ever built.",
+
+"A freshly washed motorcycle attracts rain with suspicious consistency.",
+"Every rider believes they are visible.",
+"Scientists remain concerned.",
+"Your current proximity has been noted.",
+"This result has been independently verified by nobody.",
+"Tailgating reduces personal space by up to 100%.",
+"Your distance has been classified as enthusiastic.",
+"Additional analysis would be awkward.",
+"The findings are statistically amusing.",
+"Vibe check: inconclusive.",
+
+"The first speeding ticket was reportedly issued in 1896.",
+"Many supercars spend more time parked than driven.",
+"The original Mini was designed around efficiency, not style.",
+"The Volkswagen Beetle became one of the most recognizable cars ever built.",
+"The Bugatti Chiron produces over 1,400 horsepower.",
+"The Toyota Land Cruiser has a reputation for surviving almost anything.",
+"The Jeep name dates back to World War II.",
+"The first generation Mazda MX-5 was inspired by classic British roadsters.",
+"The Lamborghini Countach introduced the dramatic wedge-shaped supercar look.",
+"The Ford GT was created to challenge Ferrari at Le Mans.",
+
+"The average motorcycle rider spends more time talking about rides than riding.",
+"Most riders own more helmets than they need.",
+"The fastest part of many motorcycles is the owner's imagination.",
+"Motorcycle luggage always seems larger before the trip.",
+"The best motorcycle accessory is good weather.",
+"Every motorcycle sounds faster with an aftermarket exhaust.",
+"At least one rider is currently checking the weather forecast.",
+"Motorcycles have an uncanny ability to attract questions at fuel stations.",
+"Every rider has taken a wrong turn and called it an adventure.",
+"The best roads are usually discovered by accident.",
+
+"The Toyota Hilux is sold in many countries around the world.",
+"The Suzuki Jimny has a cult following far beyond its size.",
+"The Nissan Patrol remains popular in many off-road communities.",
+"The Porsche 911 silhouette has remained remarkably consistent for decades.",
+"The Ferrari F40 was the last Ferrari approved by Enzo Ferrari himself.",
+"The McLaren P1 was part of the famous hybrid hypercar trio.",
+"The Porsche 918 Spyder combined performance with hybrid technology.",
+"The Koenigsegg Jesko is named after the founder's father.",
+"The Aston Martin DB5 became famous through James Bond films.",
+"The Mercedes-Benz G-Class began as a military vehicle.",
+
+"Indonesia's road network spans thousands of islands.",
+"Scooters are a daily transportation tool for millions of Indonesians.",
+"Many Indonesian families own multiple motorcycles.",
+"Traffic lights create temporary communities of strangers.",
+"Jakarta has inspired countless shortcut strategies.",
+"Some Indonesian road names are longer than the roads themselves.",
+"The horn is considered a communication device in many places.",
+"Every city develops its own traffic personality.",
+"Some journeys take longer to describe than to complete.",
+"Most people believe their route is the fastest.",
+
+"Scientists estimate your current distance as noticeable.",
+"Your proximity score has exceeded expectations.",
+"The analysis team remains cautiously optimistic.",
+"This result may contain traces of common sense.",
+"Your curiosity level appears unusually high.",
+"The data suggests you enjoy pressing buttons.",
+"Further analysis would only raise more questions.",
+"This conclusion has been approved by absolutely nobody.",
+"The system is impressed by your commitment.",
+"Statistically speaking, you're still reading."
+];    
+
+function showMotorcycle() {
+    document.querySelector('.container').innerHTML = `
+        <h1>Current Status</h1>
+
+        <p>
+            Am I moving?
+        </p>
+
+        <button onclick="showMoving()">
+            Yes
+        </button>
+
+        <button onclick="showStopped()">
+            No
+        </button>
+    `;
+}
+let lastFactIndex = -1;
+function showWalking() {
+
+    showWalkingMoving();
+
+}
+function showMoving() {
+let factIndex;
+
+do {
+    factIndex = Math.floor(Math.random() * facts.length);
+} while (factIndex === lastFactIndex);
+
+lastFactIndex = factIndex;
+const fact = facts[factIndex];
+
+    document.querySelector('.container').innerHTML = `
+    <div class="analysis-title">
+        Calculating...
+    </div>
+
+    <div class="analysis-subtitle">
+        ${fact}
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-fill"></div>
+    </div>
+`;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1 style="font-size:64px; margin-bottom:0;">
+    TOO CLOSE
+</h1>
+
+<p style="opacity:0.5; font-size:24px; margin-top:0; margin-bottom:50px;">
+    for comfort
+</p>
+
+<button class="primary-button" onclick="showStayBack()">
+    Stay Back
+</button>
+
+<button onclick="showStayClose()">
+    Stay Close
+</button>
+        `;
+
+    }, 4000);
+}
+function showCatchMe() {
+
+    document.querySelector('.container').innerHTML = `
+        <h1>Excellent.</h1>
+
+        <p>
+            We've established you're too close.
+            <br><br>
+            Now say hi properly.
+        </p>
+
+        <button class="primary-button" onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+            @matt.zilla
+        </button>
+    `;
+}
+function showStopped() {
+
+    let factIndex;
+
+    do {
+        factIndex = Math.floor(Math.random() * facts.length);
+    } while (factIndex === lastFactIndex);
+
+    lastFactIndex = factIndex;
+    const fact = facts[factIndex];
+
+    document.querySelector('.container').innerHTML = `
+        <div class="analysis-title">
+            Calculating...
+        </div>
+
+        <div class="analysis-subtitle">
+            ${fact}
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1 style="font-size:64px; margin-bottom:0;">
+                ACCEPTABLE
+            </h1>
+
+            <p style="opacity:0.5; font-size:24px; margin-top:0; margin-bottom:50px;">
+                for now
+            </p>
+
+            <p>
+                We're already stopped.
+                <br><br>
+                You might as well say hi.
+            </p>
+
+            <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+    Say Hi
+</button>
+
+<button onclick="showSayBye()">
+    Say Bye
+</button>
+        `;
+
+    }, 4000);
+}
+   function showMoveBack() 
+{
+    document.querySelector('.container').innerHTML = `
+        <h1>Excellent Choice</h1>
+
+        <p>
+            Personal space restored.
+        </p>
+
+        <h1>+10 Karma</h1>
+    `;
+}
+function showSayBye() {
+
+    document.querySelector('.container').innerHTML = `
+        <div class="wave">
+            👋
+        </div>
+
+        <h1 style="margin-top:20px;">
+            Understandable.
+        </h1>
+
+        <p>
+            Have a nice day.
+        </p>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1>
+                Interaction terminated.
+            </h1>
+
+            <p style="opacity:0.6;">
+                Goodbye.
+            </p>
+        `;
+
+    }, 3000);
+
+}
+function showStayBack() {
+
+    gtag('event', 'stay_back_clicked');
+
+    document.querySelector('.container').innerHTML = `
+        <div style="font-size:80px; margin-bottom:20px;">
+            🌻
+        </div>
+
+        <h1 style="margin-bottom:20px;">
+            Thanks.
+        </h1>
+
+        <p style="opacity:0.6; font-size:24px; line-height:1.4;">
+            The world needs
+            <br>
+            more personal space.
+        </p>
+    `;
+
+    setTimeout(() => {
+    confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FFD93D', '#F6C90E', '#FFB800']
+    });
+}, 300);
+}
+function showStayClose() {
+gtag('event', 'stay_close_clicked');
+    document.querySelector('.container').innerHTML = `
+        <h1 style="font-size:48px; line-height:1.1; margin-bottom:20px;">
+    You chose to stay close
+    <span style="font-weight:800;"></span>
+</h1>
+
+        <div id="dramatic-reveal"></div>
+    `;
+
+    setTimeout(function() {
+
+        document.getElementById('dramatic-reveal').innerHTML = `
+            <p style="opacity:0.6; font-size:24px; margin-bottom:12px;">
+    Bold move.
+</p>
+            <button class="primary-button" onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
+                Follow Me
+            </button>
+        `;
+
+    }, 2000);
+
+}
+function showWalkingMoving() {
+
+    let factIndex;
+
+    do {
+        factIndex = Math.floor(Math.random() * facts.length);
+    } while (factIndex === lastFactIndex);
+
+    lastFactIndex = factIndex;
+    const fact = facts[factIndex];
+
+    document.querySelector('.container').innerHTML = `
+        <div class="analysis-title">
+            Calculating...
+        </div>
+
+        <div class="analysis-subtitle">
+            ${fact}
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+    `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1 style="font-size:64px; margin-bottom:0;">
+                TOO CLOSE
+            </h1>
+
+            <p style="opacity:0.5; font-size:24px; margin-top:0; margin-bottom:50px;">
+                for comfort
+            </p>
+
+            <button onclick="showStayBack()">
+                Stay Back
+            </button>
+
+            <button class="primary-button" onclick="showSayHi()">
+                Say Hi
+            </button>
+        `;
+
+    }, 4000);
+}
+function showSayHi() {
+
+    document.querySelector('.container').innerHTML = `
+        <div style="font-size:80px; margin-bottom:20px;">
+            😎
+        </div>
+
+        <h1 style="font-size:48px; line-height:1.2;">
+            Seriously,
+            <br>
+            just talk to me.
+        </h1>
+    `;
+}
+</script>
+</body>
+</html>
