@@ -44,7 +44,22 @@
         width: 100%;
     }
 }
+.wave {
+    font-size: 100px;
+    display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave 1.2s ease-in-out infinite;
+}
 
+@keyframes wave {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(14deg); }
+    30%  { transform: rotate(-8deg); }
+    45%  { transform: rotate(14deg); }
+    60%  { transform: rotate(-4deg); }
+    75%  { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
 @media (prefers-color-scheme: dark) {
     .progress-track {
         background: #2c2c2e;
@@ -336,38 +351,58 @@ function showCatchMe() {
 }
 function showStopped() {
 
-    document.querySelector('.container').innerHTML = `
-        <h1>Analyzing Social Acceptability...</h1>
+    let factIndex;
 
-        <p>
-            Please wait.
-        </p>
+    do {
+        factIndex = Math.floor(Math.random() * facts.length);
+    } while (factIndex === lastFactIndex);
+
+    lastFactIndex = factIndex;
+    const fact = facts[factIndex];
+
+    document.querySelector('.container').innerHTML = `
+        <div class="analysis-title">
+            Calculating...
+        </div>
+
+        <div class="analysis-subtitle">
+            ${fact}
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
     `;
 
     setTimeout(function() {
 
         document.querySelector('.container').innerHTML = `
-            <h1>Distance Status</h1>
+            <h1 style="font-size:64px; margin-bottom:0;">
+                ACCEPTABLE
+            </h1>
 
-            <h1>Acceptable</h1>
+            <p style="opacity:0.5; font-size:24px; margin-top:0; margin-bottom:50px;">
+                for now
+            </p>
 
             <p>
                 We're already stopped.
                 <br><br>
-                You might as well introduce yourself.
+                You might as well say hi.
             </p>
 
             <button onclick="window.open('https://www.tiktok.com/@matt.zilla','_blank')">
-                Say Hi
-            </button>
+    Say Hi
+</button>
 
-            <button onclick="showContinueExisting()">
-                Continue Existing
-            </button>
+<button onclick="showSayBye()">
+    Say Bye
+</button>
         `;
 
-    }, 2000);
-}function showMoveBack() 
+    }, 4000);
+}
+   function showMoveBack() 
 {
     document.querySelector('.container').innerHTML = `
         <h1>Excellent Choice</h1>
@@ -378,15 +413,37 @@ function showStopped() {
 
         <h1>+10 Karma</h1>
     `;
-}function showContinueExisting() {
+}
+function showSayBye() {
 
     document.querySelector('.container').innerHTML = `
-        <h1>Fair Enough</h1>
+        <div class="wave">
+            👋
+        </div>
+
+        <h1 style="margin-top:20px;">
+            Understandable.
+        </h1>
 
         <p>
-            Continue existing.
+            Have a nice day.
         </p>
     `;
+
+    setTimeout(function() {
+
+        document.querySelector('.container').innerHTML = `
+            <h1>
+                Interaction terminated.
+            </h1>
+
+            <p style="opacity:0.6;">
+                Goodbye.
+            </p>
+        `;
+
+    }, 3000);
+
 }
 function showStayBack() {
 
